@@ -15,7 +15,9 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
   @override
   void initState() {
     super.initState();
-    Future<void>.microtask(() => ref.read(calendarControllerProvider.notifier).today());
+    Future<void>.microtask(
+      () => ref.read(calendarControllerProvider.notifier).today(),
+    );
   }
 
   @override
@@ -29,11 +31,20 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
       children: [
         Row(
           children: [
-            IconButton(onPressed: controller.previousMonth, icon: const Icon(Icons.chevron_left)),
+            IconButton(
+              onPressed: controller.previousMonth,
+              icon: const Icon(Icons.chevron_left),
+            ),
             Text(monthText, style: Theme.of(context).textTheme.titleLarge),
-            IconButton(onPressed: controller.nextMonth, icon: const Icon(Icons.chevron_right)),
+            IconButton(
+              onPressed: controller.nextMonth,
+              icon: const Icon(Icons.chevron_right),
+            ),
             const SizedBox(width: 8),
-            OutlinedButton(onPressed: controller.today, child: const Text('回到今天')),
+            OutlinedButton(
+              onPressed: controller.today,
+              child: const Text('回到今天'),
+            ),
           ],
         ),
         const SizedBox(height: 12),
@@ -41,7 +52,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
           child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 7,
-              childAspectRatio: 1.4,
+              childAspectRatio: 0.78,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,
             ),
@@ -63,17 +74,36 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: Colors.grey.shade300),
                   ),
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 4,
+                    vertical: 6,
+                  ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text('${item.date.day}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                      const Spacer(),
-                      Text(item.lunarShort, style: const TextStyle(fontSize: 11)),
+                      Text(
+                        '${item.date.day}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        item.lunarShort,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 11),
+                      ),
                       if (item.label?.isNotEmpty == true)
                         Text(
                           item.label!,
-                          style: const TextStyle(fontSize: 10, color: Colors.red),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          style: const TextStyle(
+                            fontSize: 10,
+                            color: Colors.red,
+                          ),
                           overflow: TextOverflow.ellipsis,
                         ),
                     ],
@@ -116,4 +146,3 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
     };
   }
 }
-

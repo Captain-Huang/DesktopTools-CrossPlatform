@@ -49,3 +49,4 @@ app.*.map.json
 
 # Windows ephemeral flutter artifacts
 /windows/flutter/ephemeral/
+/dist/desktop_tools_flutter-0.1.0-windows-x64-release
